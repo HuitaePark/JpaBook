@@ -1,4 +1,5 @@
 package com.baki.jpaproject.domain;
 
-public class DeliveryStatus {
+public enum DeliveryStatus {
+    READY, COMP
 }

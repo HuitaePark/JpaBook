@@ -11,4 +11,11 @@ public class Address {
     private String city;
     private String street;
     private String zipcode;
+
+    public Address(String 서울, String 강가, String number) {
+    }
+
+    public Address() {
+
+    }
 }

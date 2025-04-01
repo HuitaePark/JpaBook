@@ -1,5 +1,6 @@
 package com.baki.jpaproject.domain.item;
 
+import com.baki.jpaproject.domain.Category;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +10,6 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
-import jdk.jfr.Category;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Item {
+public abstract class Item {
 
     @Id @GeneratedValue
     @Column(name = "ITEM_ID")
@@ -29,5 +29,14 @@ public class Item {
 
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
+
+    public void removeStock(int quantity){
+        int restStock = this.stockQuantity - quantity;
+        if(restStock <0){
+            throw new NotEnoughStockException("need more stock");
+        }
+        this.stockQuantity = restStock;
+    }
+
 
 }
